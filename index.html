@@ -83,22 +83,14 @@
             document.getElementById("textoResultado").innerText = 
             "Erro ao consultar o CEP.";
 
-        });
-        
-
+        });  
     }
-    function consultarCEP() {
-        const cep = document.getElementById ("campCep").value;
-        if (!cep) {
-            document.getElementById ("textoResultado").innerText = 
-            "Digite um CEP.";
-            return;
-        }
-        document.getElementById ("textoResultado").innerText =
-        "Você Digitou o CEP: " + cep;
-
-    }
+      function consultarCEP() {
+          const cep = document.getElementById("campCEP").value;
+          obterEndereco(cep);
+          salvarDados(cep);
   </script>
 
 </body>
+
 </html>
