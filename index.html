@@ -36,6 +36,26 @@
   </div>
 
   <script>
+    const FIREBASE_URL = "https://climatempo-gio-default-rtdb.asta-soundeast1.firebasedatabase.app/cep/dados.json"
+
+    function salvarDados(cep) {
+        fetch(FIREBASE_URL, {
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({cep: cep})
+        });
+
+        function carregarDados() {
+            fetch(FIREBASE_URL)
+            .then(r => r.json())
+            .then (r => {
+                if (dados && dados.cep) {
+                    document.getElementById("campoCEP").value = dados.cep;
+                    obterEndereco(dados.cep);
+                }
+            });
+        }
+    }
     function obterEndereco() {
         const cep = document.getElementById("campCEP").value.replace(/\D/g,"");
 
