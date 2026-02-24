@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Via Cep</title>
+    <style>
+        body {font-family: Arial; text-align: center; margin-top: 40px;background-color: blanchedalmond;}
+
+        input {padding: 5px; margin: 5px;}
+
+        button {padding: 8px 15px; background-color: rgb(5, 117, 254); border-radius: 10px; border: none;}
+
+        button:hover { background-color: rgb(35, 104, 216); border-radius: 12px;}
+
+        #textoResultado {margin-top: 15px; font-size: 18px;}
+
+        .card { background-color: aliceblue; padding: 40px; border-radius: 15px; margin: 100px; }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+
+    <h2>Via Cep</h2>
+
+  
+    <div>
+    <input id ="campCEP" placeholder="Digite um CEP (somente números)">
+
+    </div>
+    
+<button onclick="obterEndereco()">Consultar</button>
+    
+<div id="textoResultado"></div>
+
+  </div>
+
+  <script>
+    function obterEndereco() {
+        const cep = document.getElementById("campCEP").value.replace(/\D/g,"");
+
+        if (!cep || cep.length !== 8) {
+            documen.getElementById("textoResultado").innerText =
+            "Digite um CEP válido com 8 números.";
+            return;
+        }
+        fetch (`https://viacep.com.br/ws/${cep}/json/`)
+        .then(res => res.json())
+        .then (dados => {
+            if (dados.erro) {
+                document.getElementById("textoResultado").innerText =
+                "CEP não encontrado.";
+                return;
+            }
+            document.getElementById("textoResultado").innerText =
+            "CEP: " + dados.cep + "\n" +
+            "Logradouro: " + dados.logradouro + "\n" + 
+            "Bairro: " + dados.bairro + "\n" +
+            "Cidade: " + dados.localidade + "\n" + 
+            "Estado: " + dados.uf;
+        })
+        .catch(() => {
+            document.getElementById("textoResultado").innerText = 
+            "Erro ao consultar o CEP.";
+
+        });
+        
+
+    }
+    function consultarCEP() {
+        const cep = document.getElementById ("campCep").value;
+        if (!cep) {
+            document.getElementById ("textoResultado").innerText = 
+            "Digite um CEP.";
+            return;
+        }
+        document.getElementById ("textoResultado").innerText =
+        "Você Digitou o CEP: " + cep;
+
+    }
+  </script>
+
+</body>
+</html>
